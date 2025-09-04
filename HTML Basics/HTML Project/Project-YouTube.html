@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project YouTube</title>
+    <style>
+        .thumbnail-1 {
+            width: 350px;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 0px;
+            border-radius: 10px;
+        }
+        .search-box {
+            font-size: 20px;
+            margin-left: 6px;
+            cursor: text;
+            display: block;
+            margin-left: -2px;
+        }
+        .title {
+            font-family:arial;
+            font-weight: 300px;
+            line-height: 20px;
+            width: 240px;
+            margin-bottom: 10px;
+        }
+        .channel-pic {
+            display: inline-block;
+            width: 50px;
+            vertical-align: top;
+        }
+        .profile-pic {
+            width: 40px;
+            border-radius: 33px;
+            margin-top: 13px;
+        }
+        .channel, .views-days {
+            margin-top: 0%;
+            margin-bottom: 4px;
+            font-family: arial; 
+            font-size: 16px;
+            color: rgb(96,96,96);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 15px;
+            row-gap: 33px;
+            width: 0;
+        }
+        .video-info {
+            display: inline-block;
+            cursor: pointer;
+        }
+        .left-section {
+            width: 125px;
+            display: flex;
+            align-items: center;
+        }
+        .middle-section {
+            flex: 1px;
+            margin-left: 130px;
+            margin-right: 50px;
+            max-width: 800px;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+        .right-section {
+            width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .menu {
+            height: 24px;
+            margin-left: 16px;
+            margin-right: 24px;
+            margin-bottom: 20px;
+        }
+        .youtube-logo {
+            height: 20px;
+            margin-bottom: 20px;
+        }
+        .search-button {
+            height: 42px;
+            width: 65px;
+            margin-bottom: 18px;
+            margin-top: -2px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(192, 192, 192);
+            background-color: rgb(246, 244, 244);
+            margin-left: -10px;
+            margin-right: 22px;
+            border-top-right-radius: 33px;
+            border-bottom-right-radius: 33px;
+            cursor: pointer;
+        }
+        .search-button, .vioce-search-button, .create-button, .notification-button { 
+            position: relative; 
+        }
+        .search-button .tooltip,
+        .vioce-search-button .tooltip,
+        .create-button .tooltip,
+        .notification-button .tooltip {
+            position: absolute;
+            background-color: gray;
+            color: white;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-radius: 2px;
+            font-size: 13px;
+            bottom: -30px;
+            opacity: 0;
+            transition: opacity 0.15s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .search-button:hover .tooltip,
+        .vioce-search-button:hover .tooltip,
+        .create-button:hover .tooltip,
+        .notification-button:hover .tooltip {
+            opacity: 1;
+        }
+        .vioce-search-button {
+            height: 42px;
+            width: 40px;
+            border-radius: 36px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            background-color: rgb(235, 234, 234);
+            padding-top: 4px;
+            border: none;
+            margin-right: 5px;
+            margin-left: -5px;
+            cursor: pointer;
+        }
+        .search-box {
+            margin-top: 4px;
+            margin-bottom: 24px;
+            flex: 1;
+            height: 38px;
+            padding-left: 16px;
+            margin-right: 9px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(192, 192, 192);
+            border-top-left-radius: 40px;
+            border-bottom-left-radius: 40px;
+            width: 0;
+        }
+        .search-box:active {
+            box-shadow: inset 1px 1px 1px rgb(95, 95, 96);
+        }
+        .search-box::placeholder {
+           font-family: arial;
+           font-size: 16px;
+        }
+        .search-icon {
+           width: 26px;
+           margin-top: 4px;
+        }
+        .create-button {
+           border-radius: 33px;
+           width: 40px;
+           height: 42px;
+           border: none;
+           margin-top: 10px;
+           margin-bottom: 30px;
+           cursor: pointer;
+       }   
+        .notification-button {
+           width: 40px;
+           height: 42px;
+           border: none;
+           margin-top: 10px;
+           margin-bottom: 30px;
+           margin-left: 10px;
+           background-color: white;
+           cursor: pointer;
+        }
+        .account-button {
+           width: 40px;
+           height: 42px;
+           border: none;
+           margin-top: 10px;
+           margin-bottom: 30px;
+           margin-right: 20px;
+           background-color: white;
+           cursor: pointer;
+        }
+        .create-icon {
+           background-color: rgb(235, 234, 234);
+           margin-top: 4px;
+        }
+        .notification-icon {
+           height: 24px;
+           margin-top: 4px;
+        }
+        .notification-icon-container {
+           position: relative;
+        }
+        .notification-count {
+           position: absolute;
+           top: 0;
+           right: 0;
+           background-color: rgb(200, 0, 0);
+           font-family: arial;
+           font-size: 11px;
+           color: white;
+           padding-left: 5px;
+           padding-right: 5px;
+           padding-top: 2px;
+           padding-bottom: 2px;
+           border-radius: 10px;
+        }
+        .account-pic {
+           height: 30px;
+           border-radius: 16px;
+           margin-top: 4px;
+        }
+        .header {
+           height: 112px;
+           position: fixed;
+           display: flex;
+           flex-direction: row;
+           justify-content: space-between;
+           top: 0;
+           left: 0;
+           right: 0;
+           background-color: white;
+           border-bottom-width: 1px;
+           border-bottom-style: solid;
+           border-bottom-color: rgb(228, 228, 228);
+           z-index: 100;
+        }
+        body {
+           margin: 0;
+           padding-top: 135px;   
+           padding-left: 96px;  
+           background-color: rgb(248, 248, 248);
+        }
+        .side-bar {
+           position: fixed;
+           left: 0;
+           bottom: 0;
+           top: 125px;
+           background-color: white; 
+           width: 72px;    
+           z-index: 200px;
+        }
+        .sidebar-link {
+           height: 74px;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           flex-direction: column;
+           cursor: pointer;
+        }
+        .sidebar-link:hover {
+           background-color: rgb(235,235,235);     
+        }
+        .sidebar-link img {
+           height: 24px;
+           margin-bottom: 4px;     
+        }
+        .sidebar-link div {
+           font-family: arial;
+           font-size: 10px;     
+        }
+        .thumbnail-row {
+           margin-bottom: 8px;
+           position: relative;  
+        }
+        .video-time {
+           background-color: black;
+           color: white;     
+           position: absolute;
+           font-family: arial;
+           padding: 4px 10px;
+           font-weight: 500px;
+           font-size: 12px;
+           bottom: 8px;
+           right: 5px;
+           padding-top: 4px;
+           padding-left: 4px;
+           padding-right: 4px;
+           border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    <div class="left-section">
+            <img class="menu" src="file:///C:/Users/muraa/Desktop/HTML%20Project/menu.svg">
+            <img class="youtube-logo" src="C:\Users\muraa\Desktop\HTML Project\youtube-logo.svg">
+    </div>
+    <div class="middle-section">
+        <input class="search-box" type="text" placeholder="Search">
+        <button class="search-button">
+            <img class="search-icon" src="C:\Users\muraa\Desktop\HTML Project\search.svg"><div class="tooltip">Search</div>
+        </button>
+        <button class="vioce-search-button">
+            <img class="voice-search-icon" src="C:\Users\muraa\Desktop\HTML Project\mic.svg"><div class="tooltip">Search with your voice</div>
+        </button>
+    </div>
+    <div class="right-section">
+        <button class="create-button"><img class="create-icon" src="C:\Users\muraa\Desktop\HTML Project\create.svg"><div class="tooltip">Create</div>
+        </button>
+    <div class="notification-icon-container">
+       <button class="notification-button"><img class="notification-icon" src="C:\Users\muraa\Desktop\HTML Project\notifications.svg"><div class="tooltip">Notifications</div>
+       </button>
+    <div class="notification-count">3+</div>
+    </div>
+      <button class="account-button"><img class="account-pic" src="C:\Users\muraa\Desktop\HTML Project\account.jpg"></button>
+    </div>
+    </div>
+    <div class="side-bar">
+        <div class="sidebar-link">
+                <img src="C:\Users\muraa\Desktop\HTML Project\home.svg">
+        <div>Home</div>
+        </div>
+        <div class="sidebar-link">
+                <img src="C:\Users\muraa\Desktop\HTML Project\explore.svg">
+        <div>Explore</div>
+        </div>
+        <div class="sidebar-link">
+                <img src="C:\Users\muraa\Desktop\HTML Project\subscriptions.svg">
+        <div>Subscriptions</div>
+        </div>
+        <div class="sidebar-link">
+                <img src="C:\Users\muraa\Desktop\HTML Project\originals.svg">
+        <div>Originals</div>
+        </div>
+        <div class="sidebar-link">
+                <img src="C:\Users\muraa\Desktop\HTML Project\youtube-music.svg">
+        <div>YouTube Music</div>
+        </div>
+        <div class="sidebar-link">
+                <img src="C:\Users\muraa\Desktop\HTML Project\library.svg">
+        <div>Library</div>
+        </div>
+    </div>
+    <div class="video-grid">
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1.png">
+    <div class="video-time">3:32</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+        <img class="profile-pic" src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">HIT 3 Telugu Trailer | Nani | Sailesh Kolanu | Srinidhi Shetty | In Cinemas May 1st</p>
+            <p class="channel">Wall Poster Cinema</p>
+            <p class="views-days">24M views &bull; 9 days ago</p>
+    </div>
+    </div>
+    </div>
+            
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2.png">
+    <div class="video-time">1:05</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+             <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Peddi First Shot Glimpse (Telugu) | Ram Charan | Janhvi Kapoor | A R Rahman | Buchi Babu Sana</p>
+            <p class="channel">T-Series Telugu</p>
+            <p class="views-days">488k views &bull; 2 weeks ago</p>
+    </div>
+    </div>
+    </div>
+
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3.png">
+    <div class="video-time">2:48</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Pushpa 2 The Rule Trailer (Telugu) | Allu Arjun | Sukumar | Rashmika Mandanna | Fahadh Faasil | DSP</p>
+            <p class="channel">Mythri Movie Makers</p>
+            <p class="views-days">68M views &bull; 5 months ago</p>
+    </div>
+    </div>
+    </div>
+
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1.png">
+    <div class="video-time">3:32</div>    
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+        <img class="profile-pic" src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">HIT 3 Telugu Trailer | Nani | Sailesh Kolanu | Srinidhi Shetty | In Cinemas May 1st</p>
+            <p class="channel">Wall Poster Cinema</p>
+            <p class="views-days">24M views &bull; 9 days ago</p>
+    </div>
+    </div>
+    </div>
+                
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2.png">
+    <div class="video-time">1:05</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Peddi First Shot Glimpse (Telugu) | Ram Charan | Janhvi Kapoor | A R Rahman | Buchi Babu Sana</p>
+            <p class="channel">T-Series Telugu</p>
+            <p class="views-days">488k views &bull; 2 weeks ago</p>
+    </div>
+    </div>
+    </div>
+    
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3.png">
+    <div class="video-time">2:48</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Pushpa 2 The Rule Trailer (Telugu) | Allu Arjun | Sukumar | Rashmika Mandanna | Fahadh Faasil | DSP</p>
+            <p class="channel">Mythri Movie Makers</p>
+            <p class="views-days">68M views &bull; 5 months ago</p>
+    </div>
+    </div>
+    </div>
+
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1.png">
+    <div class="video-time">3:32</div>        
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic" src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">HIT 3 Telugu Trailer | Nani | Sailesh Kolanu | Srinidhi Shetty | In Cinemas May 1st</p>
+            <p class="channel">Wall Poster Cinema</p>
+            <p class="views-days">24M views &bull; 9 days ago</p>
+    </div>
+    </div>
+    </div>
+                    
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2.png">
+    <div class="video-time">1:05</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Peddi First Shot Glimpse (Telugu) | Ram Charan | Janhvi Kapoor | A R Rahman | Buchi Babu Sana</p>
+            <p class="channel">T-Series Telugu</p>
+            <p class="views-days">488k views &bull; 2 weeks ago</p>
+    </div>
+    </div>
+    </div>
+        
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3.png">
+    <div class="video-time">2:48</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Pushpa 2 The Rule Trailer (Telugu) | Allu Arjun | Sukumar | Rashmika Mandanna | Fahadh Faasil | DSP</p>
+            <p class="channel">Mythri Movie Makers</p>
+            <p class="views-days">68M views &bull; 5 months ago</p>
+    </div>
+    </div>
+    </div>
+
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1.png">
+    <div class="video-time">3:32</div>        
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic" src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 1-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">HIT 3 Telugu Trailer | Nani | Sailesh Kolanu | Srinidhi Shetty | In Cinemas May 1st</p>
+            <p class="channel">Wall Poster Cinema</p>
+            <p class="views-days">24M views &bull; 9 days ago</p>
+    </div>
+    </div>
+    </div>
+                        
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2.png">
+    <div class="video-time">1:05</div>     
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 2-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Peddi First Shot Glimpse (Telugu) | Ram Charan | Janhvi Kapoor | A R Rahman | Buchi Babu Sana</p>
+            <p class="channel">T-Series Telugu</p>
+            <p class="views-days">488k views &bull; 2 weeks ago</p>
+    </div>
+    </div>
+    </div>
+            
+    <div class="video-1">
+    <div class="thumbnail-row">
+            <img class="thumbnail-1" src="c:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3.png">
+    <div class="video-time">2:48</div>
+    </div>
+    <div class="video-info-grid">
+    <div class="channel-pic">
+            <img class="profile-pic"src="C:\Users\muraa\Desktop\HTML Project\youtube thumbnail 3-2.png">
+    </div>
+    <div class="video-info">
+            <p class="title">Pushpa 2 The Rule Trailer (Telugu) | Allu Arjun | Sukumar | Rashmika Mandanna | Fahadh Faasil | DSP</p>
+            <p class="channel">Mythri Movie Makers</p>
+            <p class="views-days">68M views &bull; 5 months ago</p>
+    </div>
+    </div>
+    </div>
+    </div>
+     
+</body>
+</html>
