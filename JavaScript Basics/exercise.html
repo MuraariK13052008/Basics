@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+</head>
+<body>
+
+    <button>Hello</button>
+    <button class="SB">Welcome</button><br>
+
+
+<input placeholder="Name" class="js-name-input"
+      onkeydown="
+        if (event.key === 'Enter') {
+          // Optional: instead of duplicating this code,
+          // you could also put it in a function.
+          const inputElement = document.querySelector('.js-name-input');
+          document.querySelector('.js-message')
+            .innerHTML = `Your name is: ${inputElement.value}`;
+        }
+      ">
+
+    <button onclick="
+      const inputElement = document.querySelector('.js-name-input');
+      document.querySelector('.js-message')
+        .innerHTML = `Your name is: ${inputElement.value}`;
+    ">Submit</button>
+
+    <p class="js-message"></p>
+
+    <button onclick="textchange();" class="js-message">Finish</button>
+    <button onclick="textremove();" class="js-remove-text">Add to cart</button>
+
+
+<script>
+
+    /*console.log(document.querySelector('button'));*/
+
+    /*console.log(document.querySelector('button'));
+    console.log(document.querySelector('body'));
+    document.querySelector('button').innerHTML = 'changed';
+
+    const buttonElement = document.querySelector('.SB');
+    console.log(buttonElement);*/
+
+/*function greet(name) {
+    if (name) {
+    console.log(`Hello! ${name}`);   
+    }
+    else if (!name) {
+    console.log('Hi there!')
+    }
+}
+greet('Muraari');
+*/
+
+/*function convertToFahrenheit(celsius) {
+    console.log(`Celsius into Fahrenheit = ${(celsius * 9/5) + 32}°F`);
+}
+convertToFahrenheit(25)
+
+function convertToCelsius(Fahrenheit) {
+    console.log(`Fahrenheit into Celsius = ${((Fahrenheit - 32) * 5/9)}°C`);
+}
+convertToCelsius(86)
+*/
+
+
+
+/*function convertLength(length, from, to) {
+if (!from === 'km' && !from === 'miles' && !from === 'ft') {
+    return `Invalid unit: ${from}`;
+}
+else if (!to === 'km' && !to === 'miles' && !to === 'ft') {
+    return `Invalid unit: ${to}`;
+}
+else if (from === 'km' && to === 'miles') {
+    return `${length / 1.6} miles`;
+}
+else if (from === 'km' && to === 'ft') {
+    return `${length * 3281} ft`;
+}
+else if (from === 'miles' && to ==='km') {
+    return `${length * 1.6} km`;
+}   
+else if (from === 'miles' && to ==='ft') {
+    return `${length * 5280} ft`;
+}
+else if (from === 'ft' && to ==='km') {
+    return `${length / 3281} ft`;
+}else if (from === 'ft' && to ==='miles') {
+    return `${length / 5280} ft`;
+} 
+else if (from === to) {
+    return `${length} ${to}`;
+}
+}
+
+console.log(convertLength(50, 'miles', 'km'));
+console.log(convertLength(32, 'km', 'miles'));
+console.log(convertLength(5, 'km', 'ft'));
+console.log(convertLength(5, 'miles', 'km'));
+console.log(convertLength(50, 'km', 'km'));*/
+
+/*document.body.innerHTML = 'Good job!';
+document.title = 'Hello'*/
+
+/*console.log(document.title);
+document.title = 'changed';*/
+
+/*console.log(document.body);
+console.log(typeof document.body);
+console.log(document.body.innerHTML);
+document.body.innerHTML = 'changed';
+document.body.innerHTML = '<button>Good job!</button>'*/
+
+/*const myarray = [10, 20, 30];
+myarray[2] = 99;
+console.log(myarray);
+myarray.push(5);
+console.log(myarray);
+
+function getlastvalue(myarray) {
+    const lastvalue = myarray.length - 1;
+    return myarray[lastvalue];
+}
+
+console.log(getlastvalue(myarray));
+
+function arrayswap (myarray) {
+    const firstValue = myarray[0];
+    const lastValue = myarray[myarray.length - 1];
+    myarray[0] = lastValue;
+    myarray[myarray.length - 1] = firstValue;
+    return myarray;
+}
+console.log(arrayswap(myarray));*/
+
+/*for (let i = 0; i <= 10; i += 2) {
+    console.log(i);
+}
+
+for (let i = 5; i >= 0; i--) {
+    console.log(i);
+}
+
+let myarray = [1, 2, 3, 4, 5];
+const result = [];
+for (let i = 0; i < myarray.length; i++) {
+    result.push(myarray[i] + 1);
+}
+console.log(result);*/    
+
+/*function addnum(array,num) {
+    const result = [];
+    for (let i = 0; i < array.length; i++) {
+        result.push(array[i] + num);
+    }
+    return result;
+}   
+console.log(addnum([1, 2, 3, 4, 5], 10));
+
+function addarrays(array1, array2) {
+    const result = [];
+    for (let i = 0; i < array1.length; i++) {
+        result.push(array1[i] + array2[i]);
+    }
+    return result;
+}
+console.log(addarrays([1, 2, 3], [4, 5, 6]));   
+
+function countpositive(array) {
+    let count = 0;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] > 0) {
+            count++;
+        }
+    }
+    return count;
+}
+console.log(countpositive([1, -2, 3, -4, 5]));
+
+function minmax(nums) {
+    let min = nums[0];
+    let max = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] < min) {
+            min = nums[i];
+        }
+        if (nums[i] > max) {
+            max = nums[i];
+        }
+    }
+    return { min, max };
+}
+console.log(minmax([3, 1, 4, 1, 5, 9, 2, 6, 5]));;*/
+
+/*function countwords(words) {
+    const wordCount = {};
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+         if (!wordCount[word]) {
+            wordCount[word] = 1;
+          } else {
+            wordCount[word]++;
+          }
+    }
+    return wordCount;
+}
+console.log(countwords(['apple', 'banana', 'apple', 'orange', 'banana', 'apple']));*/
+
+/*function removeEgg(foods) {
+        const result = [];
+
+        for (let i = 0; i < foods.length; i++) {
+          // If the string is 'egg', use continue to skip it.
+          if (foods[i] === 'egg') {
+            continue;
+          }
+
+          // We don't need to have an else here because
+          // the only way to reach this code is if the 
+          // if-statement above is false.
+          result.push(foods[i]);
+        }
+
+        return result;
+      }
+
+      console.log(removeEgg(['egg', 'apple', 'egg', 'egg', 'ham']));*/
+
+/*const add = function() {
+    console.log(2+3);
+};
+add();
+add();
+
+function runtwice(fun) {
+    fun();
+    fun();
+}
+runtwice(function() {
+    console.log('Hello');
+});
+runtwice(add);*/
+
+/*function textchange() {
+    const button = document.querySelector('.js-message');
+    button.innerHTML = 'Loading...';
+    setTimeout(function() {
+    button.innerHTML = 'Finished!';
+    }, 1000);
+    };
+let timeoutID
+function textremove() {
+    const message = document.querySelector('.js-remove-text');
+    message.innerHTML = 'Added';
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(function() {
+    message.innerHTML = ' ';
+},3000);
+}*/
+
+/*UsetInterval(function() {
+    if (document.title = 'App') {
+        document.title = '(2) New Messages'
+
+    } else {
+        document.title = 'App';
+    }
+    }, 3000)*/
+
+/*const multiply = (a,b) =>   a * b;
+console.log(multiply(3, 4))
+
+function countpositive(nums) {
+    let positivenumbers = 0;
+    nums.forEach((num) => { if (num > 0) {positivenumbers++;} });
+    return positivenumbers;       
+    };
+console.log(countpositive([1, -2, 3, -4, 5]));*/
+
+/*function addnum(array,num){
+    return array.map((item) => item + num);
+}
+console.log(addnum([1, 2, 3, 4, 5], 10));
+
+function removeegg(foods) {
+    return foods.filter((food) => food != 'egg')
+}
+console.log(removeegg(['egg', 'apple', 'egg', 'egg', 'ham']));
+
+function removeegg(food) {
+    let eggsremoveed = 0;
+    return food.filter((food) => {
+    if (food === 'egg' && eggsremoveed < 2) {
+        eggsremoveed++;
+        return false;
+    }
+    return true;
+});
+}
+console.log(removeegg(['egg', 'apple', 'egg', 'egg', 'ham']));*/
+
+
+
+</script>
+</body>
+</html>
